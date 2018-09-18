@@ -1,0 +1,17 @@
+{
+  "ignore": [
+    ".git",
+    "node_modules",
+    ".idea",
+    "tests",
+    "src/**/*.js",
+    "src/**/*.js.map",
+    "nodemon.json",
+    "package.json"
+  ],
+  "watch": [
+    "src"
+  ],
+  "exec": "yarn rebuild",
+  "ext": "ts"
+}

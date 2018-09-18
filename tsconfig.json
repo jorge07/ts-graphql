@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": [
+      "es2015",
+      "esnext.asynciterable",
+      "es7"
+    ],
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "rootDir": ".",
+    "types": [
+      "node",
+      "chai",
+      "mocha",
+      "reflect-metadata"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "Application/*": [ "src/Application/*" ],
+      "Domain/*": [ "src/Domain/*" ],
+      "Infrastructure/*": [ "src/Infrastructure/*" ],
+      "UI/*": [ "src/UI/*" ]
+    }
+  },
+  "compileOnSave": true,
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "tests"
+  ]
+}
