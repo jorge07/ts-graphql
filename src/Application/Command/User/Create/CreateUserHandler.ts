@@ -10,7 +10,7 @@ import {inject, injectable} from "inversify";
 export default class CreateUserHandler implements Application.ICommandHandler {
     constructor(
         @inject(Mapper.UserEventStore) private readonly eventStore: EventStore.EventStore<User>,
-        @inject(Mapper.DomainService.User.UserExistInterface) private readonly userExist: IUserExistInterface,
+        @inject(Mapper.DomainService.User.UserCollection) private readonly userExist: IUserExistInterface,
     ) {}
     public async handle(command: CreateUserCommand): Promise<void|Application.IAppError> {
 

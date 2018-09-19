@@ -1,6 +1,8 @@
 import { expect } from 'chai'
 import {BootApp, Commands, Queries} from "Infrastructure/Shared/DI/index";
 import { v4 } from "uuid"
+import PostgresClient from "../../../../../src/Infrastructure/Shared/ORM/Postgres/PostgresClient";
+import Log from "../../../../../src/Domain/Shared/Logger/Log";
 
 let
     commandBus,
@@ -15,14 +17,14 @@ describe('UseCase: Create User', () => {
         queryBus = buses.queryBus;
     });
 
-    it('Given a valid user and uuid it should create a user', async () => {
+    it('Given a valid user and uuid it should create a user', (done) => {
 
         const uuid = v4();
         const name = 'paco' + uuid;
 
-        await commandBus.handle(
+        commandBus.handle(
             new Commands.CreateUserCommand(uuid, name)
-        );
+        ).then(done).catch(done);
     });
 
     it('Cant create a user that already exist', (done) => {
@@ -40,12 +42,10 @@ describe('UseCase: Create User', () => {
                 ).then(() => {
 
                     done(new Error('User already exist should throw exception'))
-                })
-                    .catch((err) => {
-                        expect(err.message).equals('User already exist');
-                        done()
-                    })
-                ;
+                }).catch((err) => {
+                    expect(err.message).equals('User already exist');
+                    done()
+                });
             }, 1000)
         })
     });
@@ -63,10 +63,5 @@ describe('UseCase: Create User', () => {
                expect(err.message).equals('Cant store events: invalid input syntax for type uuid: "kk"');
                done()
            });
-    });
-
-    after(() => {
-        commandBus = null;
-        queryBus = null;
     });
 });

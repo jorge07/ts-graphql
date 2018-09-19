@@ -6,6 +6,6 @@ let client: Client|null = null;
 export default function ElasticClient(): Client {
     return client || (client = new Client({
         host: Config.ELASTIC.HOST,
-        log: process.env.SILENT_LOGS ? "error" : "trace",
+        log: process.env.SILENT_ES_LOGS ? "error" : "trace",
     }));
 }

@@ -15,11 +15,13 @@ const logger = winston.createLogger({
     ],
 });
 
-const info = (msg: string, context?: any) => logger.info(msg, context);
-const warn = (msg: string, context?: any) => logger.warn(msg, context);
-const error = (msg: string, context?: any) => logger.error(msg, context);
+const debug = (msg: any, context?: any) => logger.debug(msg, context);
+const info = (msg: any, context?: any) => logger.info(msg, context);
+const warn = (msg: any, context?: any) => logger.warn(msg, context);
+const error = (msg: any, context?: any) => logger.error(msg, context);
 
 export default {
+    debug,
     error,
     info,
     warn,

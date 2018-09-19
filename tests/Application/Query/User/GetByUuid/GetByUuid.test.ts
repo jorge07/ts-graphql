@@ -1,7 +1,6 @@
 import { expect } from 'chai'
 import {BootApp, Commands, Queries} from "Infrastructure/Shared/DI/index";
 import { v4 } from "uuid"
-import User from "Domain/User/User";
 
 let
     commandBus,
@@ -16,32 +15,32 @@ describe('UseCase: Get User By Uuid', () => {
         queryBus = buses.queryBus;
     });
 
-    it('Given a valid user uuid it should retrieve a user', async () => {
+    it('Given a valid user uuid it should retrieve a user', (done) => {
 
         const uuid = v4();
         const name = 'paco' + uuid;
 
-        await commandBus.handle(
+        commandBus.handle(
             new Commands.CreateUserCommand(uuid, name)
-        );
+        ).then(
+            () => {
+                return new Promise((resolve) => setTimeout(async () => {
+                    const response = await queryBus.ask(new Queries.GetByUuidQuery(uuid));
 
-        const response = await queryBus.ask(new Queries.GetByUuidQuery(uuid));
+                    const value = {
+                        data: {
+                            user: {
+                                uuid: uuid,
+                                username: name
+                            }
+                        }
+                    };
 
-        const value = {
-            data: {
-                user:
-                    Object.assign(new User, {
-                        aggregates: [],
-                        events: [],
-                        methodPrefix: "apply",
-                        playhead: 0,
-                        uuid: uuid,
-                        username: name
-                    })
+                    expect(response).to.deep.equal(value);
+                    resolve();
+                }, 1000));
             }
-        };
-
-        expect(response).to.deep.equal(value);
+        ).then(done);
     });
 
     it('User not found must throw exception', (done) => {
@@ -56,10 +55,5 @@ describe('UseCase: Get User By Uuid', () => {
                 expect(err.message).equals('Not found');
                 done()
             });
-    });
-
-    after(() => {
-        commandBus = null;
-        queryBus = null;
     });
 });

@@ -65,8 +65,8 @@ export class HttpServer {
     }
 }
 
-export default async function ServerFactory(serviceContainer?): Promise<HttpServer> {
-    const {commandBus, queryBus} = await BootApp(serviceContainer);
+export default async function ServerFactory(): Promise<HttpServer> {
+    const {commandBus, queryBus} = await BootApp();
 
     return new HttpServer(commandBus, queryBus);
 }

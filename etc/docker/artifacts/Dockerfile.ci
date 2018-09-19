@@ -1,0 +1,14 @@
+FROM node:9.8.0-slim as builder
+
+WORKDIR /app
+
+COPY package.json .
+COPY yarn.lock .
+
+RUN yarn install
+
+COPY . .
+
+RUN yarn build
+
+CMD ["yarn", "start"]

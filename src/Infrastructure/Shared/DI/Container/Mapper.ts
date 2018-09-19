@@ -1,11 +1,18 @@
 export default {
     DomainService: {
         User: {
-            UserExistInterface: "user.exist",
+            UserCollection: "user.collection",
         },
     },
     ESClient: "elastic.client",
+    ESClientMapping: "elastic.mapping",
+    ESEventsListener: "events.projections.elastic",
     EventStoreDBAL: "event.store.dbal",
+    Projections: {
+        User: {
+            UserCredentialsCollections: 'user.projections.credentials'
+        }
+    },
     UseCase: {
         Command: {
             User: {

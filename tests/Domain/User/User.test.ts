@@ -2,7 +2,7 @@ import User from "Domain/User/User";
 import { expect } from 'chai';
 import UserWasCreated from "Domain/User/Events/UserWasCreated";
 
-describe("User Entity", () => {
+describe("Unit test: User Entity", () => {
     it('should be able to create a user with uuid and username with a fired DomainMessage', () => {
         const user = User.create('lol', 'paco');
 

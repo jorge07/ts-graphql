@@ -1,14 +1,13 @@
 import {Client} from "elasticsearch";
 import {Domain, EventStore} from "hollywood-js";
-import ElasticClient from "Infrastructure/Shared/ORM/ElasticSearch/Client";
+import Mapper from "Infrastructure/Shared/DI/Container/Mapper";
+import {inject, injectable, decorate} from "inversify";
 
-export default class EventsListener extends EventStore.EventListener {
+@injectable()
+export default class ElasticEventsListener extends EventStore.EventListener {
 
-    private readonly client: Client;
-
-    constructor() {
+    constructor(@inject(Mapper.ESClient) private readonly client: Client) {
         super();
-        this.client = ElasticClient();
     }
 
     public async on(message: Domain.DomainMessage) {
