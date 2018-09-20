@@ -14,7 +14,7 @@ export default class UserCredentialsCollections extends EventStore.EventSubscrib
     protected async onUserWasCreated(event: UserWasCreated): Promise<void> {
         await this.client.create({
             body: {
-                username: event.username,
+                username: event.username.toString(),
                 uuid: event.uuid,
             },
             id: event.uuid,

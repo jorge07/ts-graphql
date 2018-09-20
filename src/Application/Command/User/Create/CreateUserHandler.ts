@@ -5,6 +5,7 @@ import User from "Domain/User/User";
 import { Application, EventStore } from "hollywood-js";
 import Mapper from "Infrastructure/Shared/DI/Container/Mapper";
 import {inject, injectable} from "inversify";
+import Username from "Domain/User/ValueObject/Username";
 
 @injectable()
 export default class CreateUserHandler implements Application.ICommandHandler {
@@ -14,12 +15,7 @@ export default class CreateUserHandler implements Application.ICommandHandler {
     ) {}
     public async handle(command: CreateUserCommand): Promise<void|Application.IAppError> {
 
-        const error = await this.failIfAggregateUuidAlreadyExist(command.uuid, command.username);
-
-        if (error) {
-
-            throw error;
-        }
+        await this.failIfAggregateUuidAlreadyExist(command.uuid, command.username);
 
         try {
 
@@ -38,10 +34,9 @@ export default class CreateUserHandler implements Application.ICommandHandler {
         }
     }
 
-    private async failIfAggregateUuidAlreadyExist(uuid: string, username: string): Promise<void|Error> {
-        if (await this.userExist.userExistByUuiAndUsername(uuid, username)) {
-            Log.warn("User already exist");
-            return new Error("User already exist");
+    private async failIfAggregateUuidAlreadyExist(uuid: string, username: Username): Promise<void|Error> {
+        if (await this.userExist.userExistByUuiAndUsername(uuid, username.toString())) {
+            throw new Error("User already exist");
         }
     }
 }

@@ -1,10 +1,11 @@
 import User from "Domain/User/User";
 import { expect } from 'chai';
 import UserWasCreated from "Domain/User/Events/UserWasCreated";
+import Username from "Domain/User/ValueObject/Username";
 
 describe("Unit test: User Entity", () => {
     it('should be able to create a user with uuid and username with a fired DomainMessage', () => {
-        const user = User.create('lol', 'paco');
+        const user = User.create('lol', new Username('paco'));
 
         expect(user.getUsername()).to.equals('paco');
         expect(user.getAggregateRootId()).to.equals('lol');

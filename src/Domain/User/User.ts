@@ -1,11 +1,12 @@
 import UserWasCreated from "Domain/User/Events/UserWasCreated";
 import { Domain } from "hollywood-js";
+import Username from "Domain/User/ValueObject/Username";
 
 export default class User extends Domain.EventSourced {
 
     public static create(
         uuid: Domain.AggregateRootId,
-        username: string,
+        username: Username,
     ): User {
         const instance = new User();
 
@@ -17,7 +18,7 @@ export default class User extends Domain.EventSourced {
     }
 
     private uuid: Domain.AggregateRootId;
-    private username: string;
+    private username: Username;
 
     constructor() {
         super();
@@ -25,7 +26,7 @@ export default class User extends Domain.EventSourced {
 
     public getUsername(): string {
 
-        return this.username;
+        return this.username.toString();
     }
 
     public getAggregateRootId(): Domain.AggregateRootId {
