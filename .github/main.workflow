@@ -1,9 +1,9 @@
 workflow "New workflow" {
   on = "push"
-  resolves = ["Npm install"]
+  resolves = ["Test"]
 }
 
-action "Npm install" {
+action "Test" {
   uses = "actions/npm@6309cd9"
-  runs = "yarn install"
+  runs = "yarn install; yarn test"
 }
