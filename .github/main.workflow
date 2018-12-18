@@ -3,7 +3,13 @@ workflow "New workflow" {
   resolves = ["Test"]
 }
 
-action "Test" {
+action "Install" {
   uses = "actions/npm@6309cd9"
-  runs = "yarn install; yarn test"
+  runs = "yarn install"
+}
+
+action "Test" {
+  uses = "actions/npm@c555744"
+  needs = ["Install"]
+  runs = "yarn test"
 }
