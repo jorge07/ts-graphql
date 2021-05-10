@@ -1923,8 +1923,8 @@ hollywood-js@^1.4.3:
   resolved "https://registry.yarnpkg.com/hollywood-js/-/hollywood-js-1.5.0.tgz#5b00b94d26d41a605281e9ab6d1ed4540cbfbf8a"
 
 hosted-git-info@^2.1.4:
-  version "2.7.1"
-  resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.7.1.tgz#97f236977bd6e125408930ff6de3eec6281ec047"
+  version "2.8.9"
+  resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.8.9.tgz#dffc0bf9a21c02209090f2aa69429e1414daf3f9"
 
 http-errors@1.7.2:
   version "1.7.2"
